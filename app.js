@@ -216,6 +216,24 @@ app.get('/igMediaCounts', ensureAuthenticatedInstagram, function(req, res){
   });
 });
 
+app.get('/igActive', ensureAuthenticatedInstagram, function(req, res){
+  var query  = models.User.where({ ig_id: req.user.ig_id });
+  query.findOne(function (err, user) {
+    if (err) return err;
+    if (user) {
+      Instagram.users.recent({ 
+        user_id: user.ig_id,
+        access_token: user.ig_access_token,
+        // min_timestamp: 1398211200,
+        count: 10000,
+        complete: function(data) {
+          return res.json({users: data});        
+        }
+      });   
+    }
+  });
+});
+
 app.get('/visualization', ensureAuthenticatedInstagram, function (req, res){
   res.render('visualization');
 }); 
