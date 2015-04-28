@@ -8,7 +8,8 @@
         for (var i = 0; i < data.users.length; i++) {
             // create a new javascript Date object based on the timestamp
             // multiplied by 1000 so that the argument is in milliseconds, not seconds
-            var date = new Date((data.users[i].caption.created_time)*1000);
+            // if (data.users[i].caption == null) continue;
+            var date = new Date((data.users[i].created_time)*1000);
             // hours part from the timestamp
             var hours = date.getHours() - 8;
             if (hours < 0) {
