@@ -224,8 +224,8 @@ app.get('/igActive', ensureAuthenticatedInstagram, function(req, res){
       Instagram.users.recent({ 
         user_id: user.ig_id,
         access_token: user.ig_access_token,
-        // min_timestamp: 1398211200,
-        count: 10000,
+        min_timestamp: 1398211200,
+        // count: 5000,
         complete: function(data) {
           return res.json({users: data});        
         }
@@ -241,6 +241,10 @@ app.get('/visualization', ensureAuthenticatedInstagram, function (req, res){
 
 app.get('/c3visualization', ensureAuthenticatedInstagram, function (req, res){
   res.render('c3visualization');
+}); 
+
+app.get('/myc3visualization', ensureAuthenticatedInstagram, function (req, res){
+  res.render('myc3visualization');
 }); 
 
 app.get('/auth/instagram',

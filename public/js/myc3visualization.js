@@ -1,8 +1,6 @@
 (function() {
   $.getJSON( '/igActive')
     .done(function( data ) {
-        console.log(data);
-        console.log(data.users.pagination);
         var hourArray = [];
         var arraySize = 24;
         while(arraySize--) hourArray.push(0);
@@ -18,8 +16,6 @@
             }
             hourArray[hours]++;
         }
-
-        console.log(hourArray);
 
         // yCounts.unshift('Active');
 
