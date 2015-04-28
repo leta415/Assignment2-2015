@@ -67,3 +67,28 @@ d3.json('/igMediaCounts', function(error, data) {
     .attr("y", function(d) { return scaleY(d.counts.media); })
     .attr("height", function(d) { return height - scaleY(d.counts.media); });
 });
+
+var sortOrder = false;
+var sortBars = function () {
+    sortOrder = !sortOrder;
+    
+    sortItems = function (a, b) {
+        if (sortOrder) {
+            return a.counts.media - b.counts.media;
+        }
+        return b.counts.media - a.counts.media;
+    };
+
+    svg.selectAll(".bar")
+        .sort(sortItems)
+        .transition()
+        .delay(function (d, i) {
+        return i * 50;
+    })
+        .duration(1000)
+        .attr("x", function (d, i) {
+        return scaleX(i.username);
+    });
+};
+
+d3.select("#sort").on("click", sortBars);
