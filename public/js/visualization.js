@@ -26,6 +26,11 @@ var svg = d3.select("body").append("svg")
   .append("g")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+//create tooltip
+var div = d3.select("body").append("div")   
+    .attr("class", "tooltip")               
+    .style("opacity", 0);
+
 //get json object which contains media counts
 d3.json('/igMediaCounts', function(error, data) {
   //set domain of x to be all the usernames contained in the data
@@ -65,5 +70,18 @@ d3.json('/igMediaCounts', function(error, data) {
     .attr("x", function(d) { return scaleX(d.username); })
     .attr("width", scaleX.rangeBand())
     .attr("y", function(d) { return scaleY(d.counts.media); })
-    .attr("height", function(d) { return height - scaleY(d.counts.media); });
+    .attr("height", function(d) { return height - scaleY(d.counts.media); })
+    .on("mouseover", function(d) {
+      div.transition()        
+          .duration(200)      
+          .style("opacity", .9); 
+      div .html(d.username)
+          .style("left", (d3.event.pageX) + "px")
+          .style("top", (d3.event.pageY - 28) + "px");
+    })
+    .on("mouseout", function(){
+      div.transition()
+          .duration(500)
+          .style("opacity", 0);
+    });
 });
