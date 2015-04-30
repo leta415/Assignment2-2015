@@ -119,3 +119,4 @@ d3.json('/igMediaCounts', function(error, data) {
     }
 
 });
+

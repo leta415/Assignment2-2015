@@ -240,6 +240,8 @@ app.get('/igActive', ensureAuthenticatedInstagram, function(req, res){
   });
 });
 
+
+
 app.get('/visualization', ensureAuthenticatedInstagram, function (req, res){
   res.render('visualization');
 }); 
@@ -252,6 +254,10 @@ app.get('/c3visualization', ensureAuthenticatedInstagram, function (req, res){
 app.get('/myc3visualization', ensureAuthenticatedInstagram, function (req, res){
   res.render('myc3visualization');
 }); 
+
+app.get('/wordbubbles', ensureAuthenticatedInstagram, function(req, res){
+  res.render('wordbubbles');
+});
 
 app.get('/auth/instagram',
   passport.authenticate('instagram'),
