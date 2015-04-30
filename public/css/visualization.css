@@ -34,3 +34,10 @@ div.tooltip {
   border-radius: 8px;           
   pointer-events: none;         
 }
+
+
+#loading-indicator {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
