@@ -30,6 +30,7 @@ Bubbles = function() {
   minCollisionRadius = 12;
   jitter = 0.5;
   transformData = function(rawData) {
+        console.log(rawData);
     rawData.forEach(function(d) {
       d.count = parseInt(d.count);
       return rawData.sort(function() {
@@ -252,24 +253,24 @@ $(function() {
   display = function(data) {
     return plotData("#vis", data, plot);
   };
-  key = decodeURIComponent(location.search).replace("?", "");
-  text = texts.filter(function(t) {
-    return t.key === key;
-  })[0];
-  if (!text) {
-    text = texts[0];
-  }
-  $("#text-select").val(key);
-  d3.select("#jitter").on("input", function() {
-    return plot.jitter(parseFloat(this.output.value));
-  });
-  d3.select("#text-select").on("change", function(e) {
-    key = $(this).val();
-    location.replace("#");
-    return location.search = encodeURIComponent(key);
-  });
-  d3.select("#book-title").html(text.name);
-  return d3.csv("data/" + text.file, display);
+  // key = decodeURIComponent(location.search).replace("?", "");
+  // text = texts.filter(function(t) {
+  //   return t.key === key;
+  // })[0];
+  // if (!text) {
+  //   text = texts[0];
+  // }
+  // $("#text-select").val(key);
+  // d3.select("#jitter").on("input", function() {
+  //   return plot.jitter(parseFloat(this.output.value));
+  // });
+  // d3.select("#text-select").on("change", function(e) {
+  //   key = $(this).val();
+  //   location.replace("#");
+  //   return location.search = encodeURIComponent(key);
+  // });
+  // d3.select("#book-title").html(text.name);
+  return d3.json("/igTagWordCounts", display);
 });
 
 // ---

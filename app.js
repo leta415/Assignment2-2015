@@ -233,14 +233,52 @@ app.get('/igActive', ensureAuthenticatedInstagram, function(req, res){
         min_timestamp: 1398211200,
         // count: 5000,
         complete: function(data) {
-          return res.json({users: data});        
+          return res.json({users: data});
+                  
         }
       });   
     }
   });
 });
 
+app.get('/igTagWordCounts', ensureAuthenticatedInstagram, function(req, res){
+  var query = models.User.where({ ig_id: req.user.ig_id });
+  query.findOne(function (err, user) {
+    if (err) return err;
+    if (user) {
+      Instagram.users.recent({
+        user_id: user.ig_id,
+        access_token: user.ig_access_token,
+        min_timestamp: 1398211200,
+        complete: function(data) {
+          //data is an array of medias
+          // console.log(data);
+          var tempMap = {};
+          // var tempArr = [];
+          
+          //find word frequencies
+          for (var mediaIndex = 0; mediaIndex < data.length; mediaIndex++) {
+            var tagWords = data[mediaIndex].tags;
+            for (var tagIndex = 0; tagIndex < tagWords.length; tagIndex++) {
+              tempMap[tagWords[tagIndex]] = (tempMap[tagWords[tagIndex]] == null) ? 1 : (tempMap[tagWords[tagIndex]] + 1);
+            }
+          }
 
+          //put word frequencies in format [{name: "w1", count: 5}, {name: "w2", count: 3}, ...]
+          var keys = Object.keys(tempMap);
+          var arr = keys.map(function(key) {
+            var tempJson = {};
+            tempJson.name = key;
+            tempJson.count = tempMap[key];
+            return tempJson;
+          });
+
+          return res.json(arr);
+        }
+      });
+    }
+  });
+});
 
 app.get('/visualization', ensureAuthenticatedInstagram, function (req, res){
   res.render('visualization');
