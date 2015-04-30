@@ -1,3 +1,13 @@
+var opts = {
+    size: 72,           // Width and height of the spinner
+    factor: 0.35,       // Factor of thickness, density, etc.
+    color: "#4080FF",      // Color #rgb or #rrggbb
+    speed: 1.0,         // Number of turns per second
+    clockwise: true     // Direction of rotation
+};
+var ajaxLoader = new AjaxLoader("spinner", opts);
+ajaxLoader.show();
+
 (function() {
   $.getJSON( '/igMediaCounts')
     .done(function( data ) {
@@ -16,5 +26,7 @@
           ]
         }
       });
+
+      ajaxLoader.hide();
     });
 })();

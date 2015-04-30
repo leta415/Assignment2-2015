@@ -1,4 +1,13 @@
-//$('#img').show();
+var opts = {
+    size: 72,           // Width and height of the spinner
+    factor: 0.35,       // Factor of thickness, density, etc.
+    color: "#4080FF",      // Color #rgb or #rrggbb
+    speed: 1.0,         // Number of turns per second
+    clockwise: true     // Direction of rotation
+};
+var ajaxLoader = new AjaxLoader("spinner", opts);
+ajaxLoader.show();
+
 
 var margin = {top: 20, right: 20, bottom: 100, left: 40};
 var width = 960 - margin.left - margin.right;
@@ -64,6 +73,8 @@ d3.json('/igMediaCounts', function(error, data) {
     .style("text-anchor", "end")
     .text("Number of Photos");
 
+    ajaxLoader.hide();
+
   //set up bars in bar graph
   svg.selectAll(".bar")
     .data(data.users)
@@ -87,7 +98,6 @@ d3.json('/igMediaCounts', function(error, data) {
           .style("opacity", 0);
     });
 
-    $('#img').show();
 
     d3.select("input").on("change", change);
 
