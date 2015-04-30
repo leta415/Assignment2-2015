@@ -26,12 +26,20 @@ var svg = d3.select("body").append("svg")
   .append("g")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+//create tooltip
+var div = d3.select("body").append("div")   
+    .attr("class", "tooltip")               
+    .style("opacity", 0);
+
+var mediaCounts = [];
+
 //get json object which contains media counts
 d3.json('/igMediaCounts', function(error, data) {
   //set domain of x to be all the usernames contained in the data
   scaleX.domain(data.users.map(function(d) { return d.username; }));
   //set domain of y to be from 0 to the maximum media count returned
-  scaleY.domain([0, d3.max(data.users, function(d) { return d.counts.media; })]);
+  scaleY.domain([0, d3.max(data.users, function(d) { mediaCounts.push(d.counts.media); return d.counts.media; })]);
+
 
   //set up x axis
   svg.append("g")
@@ -65,30 +73,48 @@ d3.json('/igMediaCounts', function(error, data) {
     .attr("x", function(d) { return scaleX(d.username); })
     .attr("width", scaleX.rangeBand())
     .attr("y", function(d) { return scaleY(d.counts.media); })
-    .attr("height", function(d) { return height - scaleY(d.counts.media); });
-});
-
-var sortOrder = false;
-var sortBars = function () {
-    sortOrder = !sortOrder;
-    
-    sortItems = function (a, b) {
-        if (sortOrder) {
-            return a.counts.media - b.counts.media;
-        }
-        return b.counts.media - a.counts.media;
-    };
-
-    svg.selectAll(".bar")
-        .sort(sortItems)
-        .transition()
-        .delay(function (d, i) {
-        return i * 50;
+    .attr("height", function(d) { return height - scaleY(d.counts.media); })
+    .on("mouseover", function(d) {
+      div.transition()        
+          .duration(200)      
+          .style("opacity", .9); 
+      div .html(d.username)
+          .style("left", (d3.event.pageX) + "px")
+          .style("top", (d3.event.pageY - 28) + "px");
     })
-        .duration(1000)
-        .attr("x", function (d, i) {
-        return scaleX(i.username);
+    .on("mouseout", function(){
+      div.transition()
+          .duration(500)
+          .style("opacity", 0);
     });
-};
 
-d3.select("#sort").on("click", sortBars);
+    d3.select("input").on("change", change);
+
+    function change() {
+
+      // Copy-on-write since tweens are evaluated after a delay.
+      var x0 = scaleX.domain(data.users.sort(this.checked
+          ? function(a, b) { return b.counts.media - a.counts.media; }
+          : function(d) { return scaleX(d.username); })
+          .map(function(d) { return d.username; }))
+          .copy();
+
+      svg.selectAll(".bar")
+          .sort(function(a, b) { return x0(a.username) - x0(b.username); });
+
+      var transition = svg.transition().duration(750),
+          delay = function(d, i) { return i * 50; };
+
+      transition.selectAll(".bar")
+          .delay(delay)
+          .attr("x", function(d) { return x0(d.username); });
+
+      transition.select(".x.axis")
+          .call(xAxis)
+          .selectAll("text")  
+          .style("text-anchor", "end")
+          .selectAll("g")
+          .delay(delay);
+    }
+
+});
