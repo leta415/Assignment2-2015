@@ -1,3 +1,14 @@
+var opts = {
+    size: 72,           // Width and height of the spinner
+    factor: 0.35,       // Factor of thickness, density, etc.
+    color: "#4080FF",      // Color #rgb or #rrggbb
+    speed: 1.0,         // Number of turns per second
+    clockwise: true     // Direction of rotation
+};
+var ajaxLoader = new AjaxLoader("spinner", opts);
+ajaxLoader.show();
+
+
 var margin = {top: 20, right: 20, bottom: 100, left: 40};
 var width = 960 - margin.left - margin.right;
 var height = 500 - margin.top - margin.bottom;
@@ -31,15 +42,12 @@ var div = d3.select("body").append("div")
     .attr("class", "tooltip")               
     .style("opacity", 0);
 
-var mediaCounts = [];
-
 //get json object which contains media counts
 d3.json('/igMediaCounts', function(error, data) {
   //set domain of x to be all the usernames contained in the data
   scaleX.domain(data.users.map(function(d) { return d.username; }));
   //set domain of y to be from 0 to the maximum media count returned
-  scaleY.domain([0, d3.max(data.users, function(d) { mediaCounts.push(d.counts.media); return d.counts.media; })]);
-
+  scaleY.domain([0, d3.max(data.users, function(d) { return d.counts.media; })]);
 
   //set up x axis
   svg.append("g")
@@ -65,6 +73,8 @@ d3.json('/igMediaCounts', function(error, data) {
     .style("text-anchor", "end")
     .text("Number of Photos");
 
+    ajaxLoader.hide();
+
   //set up bars in bar graph
   svg.selectAll(".bar")
     .data(data.users)
@@ -87,6 +97,7 @@ d3.json('/igMediaCounts', function(error, data) {
           .duration(500)
           .style("opacity", 0);
     });
+
 
     d3.select("input").on("change", change);
 
@@ -118,3 +129,4 @@ d3.json('/igMediaCounts', function(error, data) {
     }
 
 });
+
