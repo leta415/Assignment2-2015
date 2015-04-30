@@ -211,9 +211,9 @@ app.get('/igMediaCounts', ensureAuthenticatedInstagram, function(req, res){
           async.parallel(asyncTasks, function(err){
             // All tasks are done now
             if (err) return err;
-            mediaCounts = _.sortBy(mediaCounts, function(item){
-            return item.counts.media;
-            });
+            // mediaCounts = _.sortBy(mediaCounts, function(item){
+            // return item.counts.media;
+            // });
             return res.json({users: mediaCounts});        
           });
         }
