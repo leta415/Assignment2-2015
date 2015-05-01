@@ -3,7 +3,9 @@
 }
 
 html, body {
-    background-color: #FDF3E7
+    /*background-color: #FDF3E7*/
+    background-image: url("http://www.unsigneddesign.com/Subtle%20Grunge%20Small/22.jpg");
+    background-size:cover;
 }
 
 .jumbotron {
@@ -95,11 +97,14 @@ html, body {
 #loginTop {
     top: 0;
     background-color: #C63D0F;
+    height:300pt;
 }
 
 #loginBottom {
     bottom: 0;
-    background-color: #FDF3E7;
+    /*background-color: #FDF3E7;*/
+        background-image: url("http://www.unsigneddesign.com/Subtle%20Grunge%20Small/22.jpg");
+        background-size:cover;
     z-index: -1000;
 }
 
@@ -136,6 +141,8 @@ img:hover {
   margin-top: 10%;
   margin-left: auto;
   margin-right: auto;
+  background-image: url("http://www.unsigneddesign.com/Subtle%20Grunge%20Small/22.jpg");
+    background-size:cover;
 }
 
 .graphlogodiv {
