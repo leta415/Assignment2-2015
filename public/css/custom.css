@@ -142,3 +142,12 @@ img:hover {
   text-align: center;
 }
 
+p {
+  font-size: 23pt;
+  font-family: 'Dosis', sans-serif;
+}
+
+h4, h1, h6, h3 {
+  font-family: 'Dosis', sans-serif;
+}
+
