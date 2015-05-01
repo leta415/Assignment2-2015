@@ -125,4 +125,15 @@ html, body {
 
 .plotTitle {
     color: #3B3738;
+    text-align: center;
+}
+
+#accountdiv {
+  margin-top: 10%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.graphlogodiv {
+  text-align: center;
 }
