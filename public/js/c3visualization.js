@@ -23,7 +23,8 @@ ajaxLoader.show();
         data: {
           columns: [
             yCounts 
-          ]
+          ],
+          colors: {'Media Count': '#3B3738'}
         }
       });
 

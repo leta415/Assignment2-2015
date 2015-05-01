@@ -108,6 +108,10 @@ html, body {
     z-index: 1000;
 }
 
+img:hover {
+    opacity: 0.5;
+}
+
 #loginLogo {
     padding-top: 30px;
     /*max-width: 500px;*/
