@@ -145,7 +145,7 @@ app.get('/', function(req, res){
 });
 
 app.get('/login', function(req, res){
-  res.render('login', { user: req.user });
+  res.render('login', { user: req.user, layout: 'nonav'});
 });
 
 app.get('/account', ensureAuthenticated, function(req, res){
