@@ -1,0 +1,51 @@
+.fontLato {
+    font-family: 'Lato', sans-serif;
+}
+
+html, body {
+    background-color: #FDF3E7
+}
+
+.jumbotron {
+    background-color: #C63D0F;
+    color: #3B3738;
+}
+
+#loginTop,
+#loginBottom {
+    /*position: fixed;*/
+    left: 0;
+    right: 0;
+    height: 50%;
+}
+
+#loginTop {
+    top: 0;
+    background-color: #C63D0F;
+}
+
+#loginBottom {
+    bottom: 0;
+    background-color: #FDF3E7;
+    z-index: -1000;
+}
+
+#loginImg {
+    padding-top: 50px;
+    z-index: 1000;
+}
+
+#loginLogo {
+    padding-top: 30px;
+    /*max-width: 500px;*/
+
+}
+
+#loginLogo img {
+    /*width: 100%;*/
+}
+
+#loginDescription {
+    padding: 10%;
+    font-size: 1.5em;
+}
