@@ -51,11 +51,13 @@ var tip = d3.tip()
 
 svg.call(tip);
 
-var sorted = false;
-var origData;
 
 //get json object which contains media counts
 d3.json('/igMediaCounts', function(error, data) {
+  var sorted = false;
+  var origDomain = data.users.slice().map(function(d) {
+    return d.username;
+  });
   //set domain of x to be all the usernames contained in the data
   scaleX.domain(data.users.map(function(d) { return d.username; }));
   //set domain of y to be from 0 to the maximum media count returned
@@ -115,15 +117,27 @@ d3.json('/igMediaCounts', function(error, data) {
 
 
     d3.select("input").on("change", change);
+    d3.select("#sortButton").on("click", change);
 
-    function change() {
-      // origData = data.users;
+    function change() {      
       // Copy-on-write since tweens are evaluated after a delay.
-      var x0 = scaleX.domain(data.users.sort(this.checked
-          ? function(a, b) { return b.counts.media - a.counts.media; }
-          : function(d) { return scaleX(d.username); })
-          .map(function(d) { return d.username; }))
-          .copy();
+      // var x0 = scaleX.domain(data.users.sort(this.checked
+      //     ? function(a, b) { return b.counts.media - a.counts.media; }
+      //     : function(d) { return scaleX(d.username); })
+      //     .map(function(d) { return d.username; }))
+      //     .copy();
+
+      var x0 = scaleX.domain(sorted ? origDomain : data.users.sort( function(a, b) { 
+          return b.counts.media - a.counts.media; 
+        })          
+        .map(function(d) { return d.username; }))
+        .copy();
+
+      sorted = !sorted;
+
+      var elem = document.getElementById("sortButton");
+      elem.innerHTML = sorted ? "Go back to original order" : "Click here to see who wins!";
+
 
       svg.selectAll(".bar")
           .sort(function(a, b) { return x0(a.username) - x0(b.username); });
