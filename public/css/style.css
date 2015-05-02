@@ -11,6 +11,7 @@ a, a:visited {
   width: 980px;
   border-left: 2px #7E8F7C solid;
   border-right: 2px #7E8F7C solid;
+  text-align: center;
 }
 
 header {
@@ -35,15 +36,16 @@ header {
 }
 
 #status {
-  padding:0 0 20px 20px;
+  padding:20px 0 20px 0;
 }
 
 #controls {
   padding: 20px;
   border-radius: 10px;
   background-color: #7E8F7C;
-  margin: 10px;
+  /*margin: 10px;*/
   width: 350px;
+  margin: auto;
 }
 
 #bubble-background {
@@ -88,6 +90,15 @@ a.bubble-label {
 .bubble-label .bubble-label-value {
   font: 11px sans-serif;
   white-space: nowrap;
+}
+
+p {
+  font-size: 23pt;
+  font-family: 'Dosis', sans-serif;
+}
+
+h4, h1, h6, h3 {
+  font-family: 'Dosis', sans-serif;
 }
 
 footer p {

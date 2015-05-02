@@ -89,6 +89,7 @@ d3.json('/igMediaCounts', function(error, data) {
           .duration(200)      
           .style("opacity", .9); 
       div .html(d.username)
+      // div .html(d.counts.media)
           .style("left", (d3.event.pageX) + "px")
           .style("top", (d3.event.pageY - 28) + "px");
     })

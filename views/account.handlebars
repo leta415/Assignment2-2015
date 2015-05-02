@@ -18,35 +18,39 @@
 		<div class="col-lg-3 text-center"><a role="button" class="btn btn-default btn-lg" href="/myc3visualization">view My C3 visualization</a></div>
 		<div class="col-lg-3 text-center"><a role="button" class="btn btn-default btn-lg" href="/wordbubbles">view bubbles</a></div>
 </div> -->
-<div id="accountdiv" class="fontLato container">
+<div id="accountdiv" class="navspace container">
 
-	<h1 class="plotTitle">Welcome, {{user.name}}!</h1>
-
-	<div class="navspace row"> 
-		<div class="col-xs-1 col-md-3"></div>
-		<div class="graphlogodiv col-xs-5 col-md-3">
-			<a href="/c3visualization"><img src="/img/sm_lineGraphLogo.png" height="100" width="200"/></a>
-			<div class="caption"><h6>Number of images your followers have posted</h6></div>
-		</div>
-		
-		<div class="graphlogodiv col-xs-5 col-md-3">
-			<a href="/visualization"><img src="/img/sm_barGraphLogo.png" height="100" width="200" /></a>
-			<div class="caption"><h6>Number of images your followers have posted and more</h6></div>
-		</div>
-		<div class="col-xs-1 col-md-3"></div>
-	</div>
+	<h1 class="plotTitle">Hi {{user.name}}! Every moment counts. Everytime you click on a data chart below, you will see instantly updated results.</h1>
 
 	<div class="row"> 
-		<div class="col-xs-1 col-md-3"></div>
-		<div class="graphlogodiv col-xs-5 col-md-3">
-			<a href="/myc3visualization"><img src="/img/sm_lineGraphLogo.png" height="100" width="200" /></a>
-			<div class="caption"><h6>Your average daily activity on Instagram</h6></div>
+		<div class="col-md-2"></div>
+		<div class="graphlogodiv col-xs-6 col-md-4">
+			<a href="/c3visualization/"><img src="/img/sm_lineGraphLogo.png" height="175" width="350"/></a>
+			<div class="caption"><h4>Amount of media your followers have posted</h4></div>
 		</div>
-		<div class="graphlogodiv col-xs-5 col-md-3">
-			<a href="/wordbubbles"><img src="/img/sm_bubblesLogo.png" height="100" width="200" /></a>
-			<div class="caption"><h6>Your most used words in captions and tags</h6></div>
+		
+		<div class="graphlogodiv col-xs-6 col-md-4">
+			<a href="/visualization"><img src="/img/sm_barGraphLogo.png" height="175" width="350" /></a>
+			<div class="caption"><h4>Which of your followers wins?</h4></div>
 		</div>
-		<div class="col-xs-1 col-md-3"></div>
+		<div class="col-md-2"></div>
+	</div>
+
+
+	<br/>
+	<br/>
+
+	<div class="row"> 
+		<div class="col-md-2"></div>
+		<div class="graphlogodiv col-xs-6 col-md-4">
+			<a href="/myc3visualization"><img src="/img/sm_lineGraphLogo.png" height="175" width="350" /></a>
+			<div class="caption"><h4>Your average daily activity on Instagram</h4></div>
+		</div>
+		<div class="graphlogodiv col-xs-6 col-md-4">
+			<a href="/wordbubbles"><img src="/img/sm_bubblesLogo.png" height="175" width="350" /></a>
+			<div class="caption"><h4>Your most used tags</h4></div>
+		</div>
+		<div class="col-md-2"></div>
 	</div>
 
 </div>

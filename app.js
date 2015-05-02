@@ -141,7 +141,8 @@ function ensureAuthenticatedInstagram(req, res, next) {
 
 //routes
 app.get('/', function(req, res){
-  res.render('login');
+  // res.render('login');
+  res.render('login', { user: req.user, layout: 'nonav'});
 });
 
 app.get('/login', function(req, res){
@@ -286,6 +287,9 @@ app.get('/visualization', ensureAuthenticatedInstagram, function (req, res){
 
 
 app.get('/c3visualization', ensureAuthenticatedInstagram, function (req, res){
+  // console.log(res.req.user.name);
+  // var tempJson = {};
+  // tempJson.name = res.req.user.name;
   res.render('c3visualization');
 }); 
 
