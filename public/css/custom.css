@@ -160,6 +160,7 @@ html, body {
 
 .graphlogodiv img {
   opacity: 0.8;
+  border-radius: 20px;
 }
 
 .graphlogodiv img:hover {
