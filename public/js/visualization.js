@@ -8,7 +8,6 @@ var opts = {
 var ajaxLoader = new AjaxLoader("spinner", opts);
 ajaxLoader.show();
 
-
 var margin = {top: 20, right: 20, bottom: 100, left: 40};
 var width = 960 - margin.left - margin.right;
 var height = 500 - margin.top - margin.bottom;
@@ -38,9 +37,22 @@ var svg = d3.select("#chart").append("svg")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 //create tooltip
-var div = d3.select("body").append("div")   
-    .attr("class", "tooltip")               
-    .style("opacity", 0);
+// var div = d3.select("body").append("div")   
+//     .attr("class", "tooltip")               
+//     .style("opacity", 0);
+
+var tip = d3.tip()
+  .attr('class', 'tooltip')
+  .offset([-10, 0])
+  .html(function(d) {
+    return "<div><strong>User:</strong> <span style='color: #FDF3E7;'>" + d.username + "</span></div>"
+          + "<div><strong>Count:</strong> <span style='color: #FDF3E7;'>" + d.counts.media + "</span></div>";
+  });
+
+svg.call(tip);
+
+var sorted = false;
+var origData;
 
 //get json object which contains media counts
 d3.json('/igMediaCounts', function(error, data) {
@@ -84,26 +96,28 @@ d3.json('/igMediaCounts', function(error, data) {
     .attr("width", scaleX.rangeBand())
     .attr("y", function(d) { return scaleY(d.counts.media); })
     .attr("height", function(d) { return height - scaleY(d.counts.media); })
-    .on("mouseover", function(d) {
-      div.transition()        
-          .duration(200)      
-          .style("opacity", .9); 
-      div .html(d.username)
-      // div .html(d.counts.media)
-          .style("left", (d3.event.pageX) + "px")
-          .style("top", (d3.event.pageY - 28) + "px");
-    })
-    .on("mouseout", function(){
-      div.transition()
-          .duration(500)
-          .style("opacity", 0);
-    });
+    // .on("mouseover", function(d) {
+    //   div.transition()        
+    //       .duration(200)      
+    //       .style("opacity", .9); 
+    //   div .html(d.username)
+    //   // div .html(d.counts.media)
+    //       .style("left", (d3.event.pageX) + "px")
+    //       .style("top", (d3.event.pageY - 28) + "px");
+    // })
+    // .on("mouseout", function(){
+    //   div.transition()
+    //       .duration(500)
+    //       .style("opacity", 0);
+    // })
+    .on('mouseover', tip.show)
+      .on('mouseout', tip.hide);
 
 
     d3.select("input").on("change", change);
 
     function change() {
-
+      // origData = data.users;
       // Copy-on-write since tweens are evaluated after a delay.
       var x0 = scaleX.domain(data.users.sort(this.checked
           ? function(a, b) { return b.counts.media - a.counts.media; }

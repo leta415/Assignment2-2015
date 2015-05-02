@@ -12,6 +12,7 @@ var dotenv = require('dotenv');
 var mongoose = require('mongoose');
 var Instagram = require('instagram-node-lib');
 var async = require('async');
+var d3 = require('d3');
 var app = express();
 // var _ = require('underscore');
 
