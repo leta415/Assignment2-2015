@@ -116,27 +116,63 @@ d3.json('/igMediaCounts', function(error, data) {
       .on('mouseout', tip.hide);
 
 
-    d3.select("input").on("change", change);
-    d3.select("#sortButton").on("click", change);
+    // d3.select("input").on("change", change);
+    // d3.select("#sortButton").on("click", change);
 
-    function change() {      
-      // Copy-on-write since tweens are evaluated after a delay.
-      // var x0 = scaleX.domain(data.users.sort(this.checked
-      //     ? function(a, b) { return b.counts.media - a.counts.media; }
-      //     : function(d) { return scaleX(d.username); })
-      //     .map(function(d) { return d.username; }))
-      //     .copy();
+    // function change() {      
+    //   // Copy-on-write since tweens are evaluated after a delay.
+    //   // var x0 = scaleX.domain(data.users.sort(this.checked
+    //   //     ? function(a, b) { return b.counts.media - a.counts.media; }
+    //   //     : function(d) { return scaleX(d.username); })
+    //   //     .map(function(d) { return d.username; }))
+    //   //     .copy();
 
-      var x0 = scaleX.domain(sorted ? origDomain : data.users.sort( function(a, b) { 
+    //   var x0 = scaleX.domain(sorted ? origDomain : data.users.sort( function(a, b) { 
+    //       return b.counts.media - a.counts.media; 
+    //     })          
+    //     .map(function(d) { return d.username; }))
+    //     .copy();
+
+    //   sorted = !sorted;
+
+    //   var elem = document.getElementById("sortButton");
+    //   elem.innerHTML = sorted ? "Go back to original order" : "Click here to see who wins!";
+
+
+    //   svg.selectAll(".bar")
+    //       .sort(function(a, b) { return x0(a.username) - x0(b.username); });
+
+    //   var transition = svg.transition().duration(750),
+    //       delay = function(d, i) { return i * 50; };
+
+    //   transition.selectAll(".bar")
+    //       .delay(delay)
+    //       .attr("x", function(d) { return x0(d.username); });
+
+    //   transition.select(".x.axis")
+    //       .call(xAxis)
+    //       .selectAll("text")  
+    //       .style("text-anchor", "end")
+    //       .selectAll("g")
+    //       .delay(delay);
+    // }
+
+
+    d3.select("#sortClickImgDiv").on("click", sort);
+    d3.select("#unsortClickImgDiv").on("click", unsort);
+
+    function sort() {   
+      if (sorted) return;
+      sorted = true;
+
+      document.getElementById('sortClickImgDiv').style.backgroundColor = "#3E5378";
+      document.getElementById('unsortClickImgDiv').style.backgroundColor = "transparent";
+
+      var x0 = scaleX.domain(data.users.sort( function(a, b) { 
           return b.counts.media - a.counts.media; 
         })          
         .map(function(d) { return d.username; }))
         .copy();
-
-      sorted = !sorted;
-
-      var elem = document.getElementById("sortButton");
-      elem.innerHTML = sorted ? "Go back to original order" : "Click here to see who wins!";
 
 
       svg.selectAll(".bar")
@@ -157,5 +193,31 @@ d3.json('/igMediaCounts', function(error, data) {
           .delay(delay);
     }
 
+    function unsort() {  
+      if (!sorted) return;
+      sorted = false;
+
+      document.getElementById('sortClickImgDiv').style.backgroundColor = "transparent";
+      document.getElementById('unsortClickImgDiv').style.backgroundColor = "#3E5378";
+
+      var x0 = scaleX.domain(origDomain).copy();
+
+      svg.selectAll(".bar")
+          .sort(function(a, b) { return x0(a.username) - x0(b.username); });
+
+      var transition = svg.transition().duration(750),
+          delay = function(d, i) { return i * 50; };
+
+      transition.selectAll(".bar")
+          .delay(delay)
+          .attr("x", function(d) { return x0(d.username); });
+
+      transition.select(".x.axis")
+          .call(xAxis)
+          .selectAll("text")  
+          .style("text-anchor", "end")
+          .selectAll("g")
+          .delay(delay);
+    }
 });
 

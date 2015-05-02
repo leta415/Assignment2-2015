@@ -40,7 +40,7 @@ ajaxLoader.show();
                     // Object.keys(hourMap),
                     hourArray
                 ],
-                colors: {0: '#7E8F7C'}
+                colors: {0: '#3E5378'}
             }
             // axis: {
             //     x: {
