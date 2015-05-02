@@ -8,6 +8,16 @@ html, body {
     background-size:cover;
 }
 
+#brandname {
+  color:#F5F4F2;
+  font-family: 'Dosis', 
+  sans-serif;font-size:1.3em;
+}
+
+#brandname:hover {
+  font-size: 1.4em;
+}
+
 .jumbotron {
     background-color: #C63D0F;
     color: #3B3738;
@@ -168,11 +178,14 @@ html, body {
 }
 
 #sortClickImgDiv, #unsortClickImgDiv {
-  cursor: pointer;
   border-radius: 10px;
   padding: 10px 0;
   opacity: 0.7;
   /*border-bottom: 1px solid black;*/
+}
+
+#sortClickImgDiv {
+  cursor: pointer;
 }
 
 #unsortClickImgDiv {

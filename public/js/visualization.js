@@ -165,6 +165,9 @@ d3.json('/igMediaCounts', function(error, data) {
       if (sorted) return;
       sorted = true;
 
+      $('#sortClickImgDiv').css('cursor', 'initial');
+      $('#unsortClickImgDiv').css('cursor', 'pointer');
+
       document.getElementById('sortClickImgDiv').style.backgroundColor = "#3E5378";
       document.getElementById('unsortClickImgDiv').style.backgroundColor = "transparent";
 
@@ -196,6 +199,9 @@ d3.json('/igMediaCounts', function(error, data) {
     function unsort() {  
       if (!sorted) return;
       sorted = false;
+
+      $('#sortClickImgDiv').css('cursor', 'pointer');
+      $('#unsortClickImgDiv').css('cursor', 'initial');
 
       document.getElementById('sortClickImgDiv').style.backgroundColor = "transparent";
       document.getElementById('unsortClickImgDiv').style.backgroundColor = "#3E5378";
