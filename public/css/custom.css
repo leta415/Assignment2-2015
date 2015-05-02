@@ -18,6 +18,11 @@ html, body {
   font-size: 1.4em;
 }
 
+#spinnerdiv {
+  width: 100%;
+  text-align: center;
+}
+
 .jumbotron {
     background-color: #C63D0F;
     color: #3B3738;
